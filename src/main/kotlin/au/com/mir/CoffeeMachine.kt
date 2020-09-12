@@ -1,14 +1,14 @@
 package au.com.mir
 
 object CoffeeMachine {
-    fun makeDrink(request: String): Drink {
-        val drinkType = request.split(':')[0]
+    fun makeDrink(request: Orders): IOrderResponse {
+        val drinkType = request.getOrderType()
+        val getMessage = request.getOrderDetails()
 
-        val sugar = request.split(':')[1].toInt()
-        val stick = sugar > 0
-
-        return Drinks.order(drinkType, sugar, stick)
-
+        return if (drinkType == "M")
+            Message(getMessage)
+        else
+            Drinks.makeOrder(request)
     }
 }
 

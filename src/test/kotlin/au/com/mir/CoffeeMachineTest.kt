@@ -16,7 +16,7 @@ object CoffeeMachineTest : Spek({
             val result = coffeeMachine.makeDrink(command, money)
 
             // THEN
-            Assertions.assertEquals(Tea(1, true), result)
+            Assertions.assertEquals(Tea(1, stick = true, extraHot = false), result)
         }
 
         it("should take an order T:1:0 with >= 0.4 and make a tea with one sugar and a stick") {
@@ -29,7 +29,20 @@ object CoffeeMachineTest : Spek({
             val result = coffeeMachine.makeDrink(command, money)
 
             // THEN
-            Assertions.assertEquals(Tea(1, true), result)
+            Assertions.assertEquals(Tea(1, stick = true, extraHot = false), result)
+        }
+
+        it("should take a string Th:1:0 and make an extra hot tea with one sugar and a stick") {
+            // GIVEN
+            val command = Orders("Th:1:0")
+            val money = 0.4
+            val coffeeMachine = CoffeeMachine
+
+            // WHEN
+            val result = coffeeMachine.makeDrink(command, money)
+
+            // THEN
+            Assertions.assertEquals(Tea(1, stick = true, extraHot = true), result)
         }
 
         it("should take an order T:1:0 with < 0.4 and return an error message") {
@@ -55,7 +68,7 @@ object CoffeeMachineTest : Spek({
             val result = coffeeMachine.makeDrink(command, money)
 
             // THEN
-            Assertions.assertEquals(HotChocolate(0, false), result)
+            Assertions.assertEquals(HotChocolate(0, stick = false, extraHot = false), result)
         }
 
         it("should take an order H:0:0 with >= 0.5 and make a chocolate with 0 sugar and 0 stick") {
@@ -68,7 +81,20 @@ object CoffeeMachineTest : Spek({
             val result = coffeeMachine.makeDrink(command, money)
 
             // THEN
-            Assertions.assertEquals(HotChocolate(0, false), result)
+            Assertions.assertEquals(HotChocolate(0, stick = false, extraHot = false), result)
+        }
+
+        it("should take an order Hh:0:0 with >= 0.5 and make an extra hot chocolate with 0 sugar and 0 stick") {
+            // GIVEN
+            val command = Orders("Hh:0:0")
+            val money = 0.7
+            val coffeeMachine = CoffeeMachine
+
+            // WHEN
+            val result = coffeeMachine.makeDrink(command, money)
+
+            // THEN
+            Assertions.assertEquals(HotChocolate(0, stick = false, extraHot = true), result)
         }
 
         it("should take an order H:0:0 with < 0.5  and return an error message") {
@@ -94,7 +120,7 @@ object CoffeeMachineTest : Spek({
             val result = coffeeMachine.makeDrink(command, money)
 
             // THEN
-            Assertions.assertEquals(Coffee(2, true), result)
+            Assertions.assertEquals(Coffee(2, stick = true, extraHot = false), result)
         }
 
         it("should take an order C:2:0 and amount >= 0.6 and make a chocolate with 2 sugar and 1 stick") {
@@ -107,7 +133,20 @@ object CoffeeMachineTest : Spek({
             val result = coffeeMachine.makeDrink(command, money)
 
             // THEN
-            Assertions.assertEquals(Coffee(2, true), result)
+            Assertions.assertEquals(Coffee(2, stick = true, extraHot = false), result)
+        }
+
+        it("should take an order Ch:2:0 and amount >= 0.6 and make an extra hot chocolate with 2 sugar and 1 stick") {
+            // GIVEN
+            val command = Orders("Ch:2:0")
+            val money = 0.9
+            val coffeeMachine = CoffeeMachine
+
+            // WHEN
+            val result = coffeeMachine.makeDrink(command, money)
+
+            // THEN
+            Assertions.assertEquals(Coffee(2, stick = true, extraHot = true), result)
         }
 
         it("should take an order C:2:0 and amount < 0.6 and return an error message") {
@@ -160,7 +199,7 @@ object CoffeeMachineTest : Spek({
             val result = coffeeMachine.makeDrink(command, money)
 
             // THEN
-            Assertions.assertEquals(OrangeJuice(0, false), result)
+            Assertions.assertEquals(OrangeJuice(0, stick = false, extraHot = false), result)
         }
 
         it("should take an order O:: and amount < 0.6 and return not enough money") {

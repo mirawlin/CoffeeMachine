@@ -6,11 +6,13 @@ object Drinks {
         val sugar = order.getOrderDetails().toIntOrNull() ?: 0
         val stick = sugar > 0
 
-        return when(drinkType) {
-            "T" -> makeDrinkIfAmountValid(amount, Tea(sugar,stick))
-            "H" -> makeDrinkIfAmountValid(amount, HotChocolate(sugar,stick))
-            "C" -> makeDrinkIfAmountValid(amount, Coffee(sugar,stick))
-            "O" -> makeDrinkIfAmountValid(amount, OrangeJuice(sugar,stick))
+        val extraHot = drinkType.length > 1
+
+        return when(drinkType[0].toString()) {
+            "T" -> makeDrinkIfAmountValid(amount, Tea(sugar,stick, extraHot))
+            "H" -> makeDrinkIfAmountValid(amount, HotChocolate(sugar,stick, extraHot))
+            "C" -> makeDrinkIfAmountValid(amount, Coffee(sugar,stick, extraHot))
+            "O" -> makeDrinkIfAmountValid(amount, OrangeJuice(sugar,stick, extraHot))
             else -> throw RuntimeException("Not Valid Input")
         }
     }

@@ -149,5 +149,31 @@ object CoffeeMachineTest : Spek({
             // THEN
             Assertions.assertEquals("Not Valid Input", thrown.message)
         }
+
+        it("should take an order O:: and amount >= 0.6 and make an orange juice") {
+            // GIVEN
+            val command = Orders("O::")
+            val money = 0.9
+            val coffeeMachine = CoffeeMachine
+
+            // WHEN
+            val result = coffeeMachine.makeDrink(command, money)
+
+            // THEN
+            Assertions.assertEquals(OrangeJuice(0, false), result)
+        }
+
+        it("should take an order O:: and amount < 0.6 and return not enough money") {
+            // GIVEN
+            val command = Orders("O::")
+            val money = 0.1
+            val coffeeMachine = CoffeeMachine
+
+            // WHEN
+            val result = coffeeMachine.makeDrink(command, money)
+
+            // THEN
+            Assertions.assertEquals(Message("Not enough money"), result)
+        }
     }
 })

@@ -10,6 +10,7 @@ object Drinks {
             "T" -> makeDrinkIfAmountValid(amount, Tea(sugar,stick))
             "H" -> makeDrinkIfAmountValid(amount, HotChocolate(sugar,stick))
             "C" -> makeDrinkIfAmountValid(amount, Coffee(sugar,stick))
+            "O" -> makeDrinkIfAmountValid(amount, OrangeJuice(sugar,stick))
             else -> throw RuntimeException("Not Valid Input")
         }
     }
